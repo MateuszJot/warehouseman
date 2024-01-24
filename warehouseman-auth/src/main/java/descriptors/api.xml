@@ -1,0 +1,26 @@
+<assembly>
+    <id>api</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <!-- Exclude dependencies -->
+    <dependencySets>
+        <dependencySet>
+            <includes>
+                <include>none</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.outputDirectory}</directory>
+            <includes>
+                <include>pl/krakow/uken/mateuszjachowicz/warehouseman/auth/application/**</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

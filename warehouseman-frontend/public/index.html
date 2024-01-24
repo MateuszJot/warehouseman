@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/util.js" defer></script>
+</head>
+<body>
+
+    <div class="container">
+        <section class="item-list" id="item-list">
+            <div class="item-list-header">
+                <div>code</div>
+                <div>name</div>
+                <div>supplier</div>
+                <div>price</div>
+                <div>warehouseable</div>
+                <div>description</div>
+                <div>-</div>
+            </div>
+
+        </section>
+    </div>
+
+
+    
+
+
+    <template id="template-item">
+        <div class="item" template-set-attr="id">
+            <div template-set="code"></div>
+            <div template-set="name"></div>
+            <div template-set="supplier">
+                <span template-set="code"></span>
+                <span template-set="name"></span>
+            </div>
+            <div template-set="price"></div>
+            <div template-set="warehouseable"></div>
+            <div template-set="description"></div>
+            <button template-set-attr="id" onclick="removeItem(this)">X</button>
+        </div>
+    </template>
+</body>
+</html>
