@@ -2,10 +2,7 @@ package pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.control
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.dtos.items.ItemCreateRequestDTO;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.dtos.items.ItemListResponseDTO;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.dtos.items.ItemResponseDTO;
@@ -14,10 +11,13 @@ import pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.dtos.ite
 import java.util.UUID;
 
 public interface ItemController {
-    @PostMapping("/items")
+    @PostMapping(value = "/items")
     ResponseEntity<ItemResponseDTO> createItem(@Valid @RequestBody ItemCreateRequestDTO body);
     @GetMapping("/items/{id}")
     ResponseEntity<ItemResponseDTO> getItemByID(@Valid @PathVariable UUID id);
     @GetMapping("/items")
     ResponseEntity<ItemListResponseDTO> getItemsByParams(ItemSearchParamsDTO params);
+
+    @DeleteMapping("/items/{id}")
+    ResponseEntity<Void> deleteItemByID(@Valid @PathVariable UUID id);
 }

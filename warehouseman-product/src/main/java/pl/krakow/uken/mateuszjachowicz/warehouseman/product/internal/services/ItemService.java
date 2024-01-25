@@ -11,4 +11,6 @@ public interface ItemService {
     ItemResponseDTO createItem(ItemCreateRequestDTO body);
     ItemResponseDTO getItemByID(UUID id);
     ItemListResponseDTO getItemsByParams(ItemSearchParamsDTO params);
+
+    void deleteItemByID(UUID id);
 }

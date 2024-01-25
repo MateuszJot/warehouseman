@@ -1,6 +1,7 @@
 package pl.krakow.uken.mateuszjachowicz.warehouseman.product.internal.repositories;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +18,8 @@ public interface ItemRepository extends CrudRepository<ItemEntity, UUID>, JpaSpe
     List<ItemEntity> findAll();
     @Query("SELECT i FROM ItemEntity i WHERE i.supplier.code = :code")
     List<ItemEntity> findBySupplier(@Param("code") String code);
+    @Override
+    @Modifying
+    @Query("DELETE FROM ItemEntity i WHERE i.id = :id")
+    void deleteById(UUID id);
 }

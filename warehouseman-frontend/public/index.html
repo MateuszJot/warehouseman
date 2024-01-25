@@ -14,31 +14,39 @@
 <body>
 
     <div class="container">
+        <header class="header">
+            <span>Your session: </span>
+            <span id="session-info"></span>
+            <button onclick="refreshSession()">Refres/Request session</button>
+        </header>
         <section class="item-list" id="item-list">
             <div class="item-list-header">
                 <div>code</div>
                 <div>name</div>
-                <div>supplier</div>
+                <div>supplier id</div>
                 <div>price</div>
                 <div>warehouseable</div>
                 <div>description</div>
                 <div>-</div>
             </div>
-
+            <div class="item-list-header">
+                <div><input type="text" id="new-item-code"/></div>
+                <div><input type="text" id="new-item-name"/></div>
+                <div><select id="new-item-supplier"></select></div>
+                <div><input type="number" min="1" step="1" id="new-item-price"/></div>
+                <div><input type="checkbox" id="new-item-warehouseable"/></div>
+                <div><input type="text" id="new-item-description"/></div>
+                <div><button onclick="addItem()">Add</button></div>
+            </div>
         </section>
     </div>
-
-
-    
-
 
     <template id="template-item">
         <div class="item" template-set-attr="id">
             <div template-set="code"></div>
             <div template-set="name"></div>
-            <div template-set="supplier">
-                <span template-set="code"></span>
-                <span template-set="name"></span>
+            <div>
+                <span template-set="supplier-id"></span>
             </div>
             <div template-set="price"></div>
             <div template-set="warehouseable"></div>

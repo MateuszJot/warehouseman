@@ -26,6 +26,6 @@ public class SupplierEntity extends BaseEntity {
     private String address2;
     @Column
     private String country;
-    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<ItemEntity> items;
 }

@@ -30,6 +30,7 @@ public class ItemServiceImpl implements ItemService {
     private final SupplierRepository supplierRepository;
     @Override
     public ItemResponseDTO createItem(ItemCreateRequestDTO body) {
+
         ItemEntity entity = mapper.toEntity(body);
         SupplierEntity supplierEntity = supplierRepository
                 .findById(body.getSupplier())
@@ -65,5 +66,14 @@ public class ItemServiceImpl implements ItemService {
                     return builder.and(predicates.toArray(new Predicate[0]));
                 }, PageRequest.of(params.getPageNumber(), params.getPageSize()));
         return mapper.toResponse(items);
+    }
+
+    @Override
+    public void deleteItemByID(UUID id) {
+        ItemEntity entity =
+                repository
+                        .findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException(ItemEntity.class, id));
+        repository.delete(entity);
     }
 }

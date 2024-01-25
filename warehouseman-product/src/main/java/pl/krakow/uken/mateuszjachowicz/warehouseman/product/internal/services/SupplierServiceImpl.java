@@ -3,6 +3,7 @@ package pl.krakow.uken.mateuszjachowicz.warehouseman.product.internal.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.dtos.suppliers.SupplierCreateRequestDTO;
+import pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.dtos.suppliers.SupplierListResponseDTO;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.product.application.dtos.suppliers.SupplierResponseDTO;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.product.internal.entites.SupplierEntity;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.product.internal.mappers.SupplierMapper;
@@ -18,5 +19,10 @@ public class SupplierServiceImpl implements SupplierService {
         SupplierEntity entity = mapper.toEntity(body);
         SupplierEntity persistEntity = repository.save(entity);
         return mapper.toResponse(persistEntity);
+    }
+
+    @Override
+    public SupplierListResponseDTO getSuppliers() {
+        return mapper.toResponse(repository.findAll());
     }
 }

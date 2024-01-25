@@ -37,4 +37,12 @@ public class ItemControllerImpl implements ItemController {
                 .status(HttpStatus.OK)
                 .body(service.getItemsByParams(params));
     }
+
+    @Override
+    public ResponseEntity<Void> deleteItemByID(UUID id) {
+        service.deleteItemByID(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }

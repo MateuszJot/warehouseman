@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.lib.entities.BaseEntity;
 
 @Entity
@@ -21,7 +22,7 @@ public class ItemEntity extends BaseEntity {
     @Column
     private String description;
     @JoinColumn(name="supplier_id")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private SupplierEntity supplier;
     @Column
     private int price;

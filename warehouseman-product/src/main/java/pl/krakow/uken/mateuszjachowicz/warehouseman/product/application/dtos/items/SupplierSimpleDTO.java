@@ -6,6 +6,4 @@ import java.util.UUID;
 @Data
 public class SupplierSimpleDTO {
     private UUID id;
-    private String name;
-    private String code;
 }
