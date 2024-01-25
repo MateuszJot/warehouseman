@@ -22,7 +22,6 @@ Projekt składa się z:
 **Opcja I** (wykonana)
 
 - **Utworzenie REST API do obsługi operacji na wybranych danych** - projekty auth, product, warehouse wystawiają endpointy w stylu RESTapi
-- **Dokumentacja do API** - **/////////////////////// TODO ///////**
 - **Walidacja zapytań i zabezpieczenie przed nieprawidłowymi zapytaniami** - Java Bean Validations użyte w klasach DTO (+ @Valid w interfejsach kontrolerów) - pakiet `.../application/dtos/` ([product](./warehouseman-product/src/main/java/pl/krakow/uken/mateuszjachowicz/warehouseman/product/application/dtos/), [warehouse](./warehouseman-warehouse/src/main/java/pl/krakow/uken/mateuszjachowicz/warehouseman/warehouse/application/dtos/))
 - **Dane zapisane w wybranej bazie danych** - MySQL (możliwa zmiana silnika na inny silnik SQL'owy) - wykorzystanie JPA i Hibernate.
 
@@ -54,16 +53,23 @@ Projekt składa się z:
 2. Ustawić parametry JAVA_HOME na ścieżkę do katalogu Javy 17 (z kroku wcześniej)
 3. Pobrać Maven 3.9.5 lub nowszy (zalecany 3.9.5)
 4. Uruchomic ulubiony SZBD MySQL
-    1. Utworzyc w niej bazy danych `warehouseman` i `warehouseman-warehouse`
+    1. Zaimportować załączone bazy danych: `warehouseman` i `warehouseman-warehouse`
     2. Wystawić SZBD MySQL na `localhost:3306`.
 5. Uruchomić wybrane usługi
     1. Wejść do folderu usługi (np. Warehouseman-auth)
     2. Wykonać plecenie maven do uruchomienia aplikacji spring-boot: `mvn spring-boot:run`
 6. Przejść do katalogu `warehouseman-frontend`
-    1. zahostować folder `public` ulubionym programem do hostowania statycznych stron (przykładowo: `python -m http.server 80` wykonany w folderze `public`)
-    2. W wypadku braku ulubione programu możliwe jest uruchomienie strony po przez otwarcie pliku `index.html` w przeglądarce internetowej.
-    3. frontend będzie wysyłać requesty na adres `localhost` na porty skonfigurowane wewnątrz aplikacji backendowych.
-7. By ułatwić to wszystko gotowy jest skrypt `run.sh` (skrypt nie obsługuje uruchomienia baz danych)
+    1. Uruchomić stronę poprzez otwarcie pliku `index.html` w przeglądarce internetowej.
+    2. Frontend będzie wysyłać requesty na adres `localhost` na porty skonfigurowane wewnątrz aplikacji backendowych.
 
-Możliwe jest zmienienie silnika bazodanowego i portów po przez dostosowanie ustawień w pliku `application.yaml` wewnątrz projektów auth, product, warehouse. Lub przez przekazanie odpowiednich zmiannych środowiskowych Springa.
+Możliwe jest zmienienie silnika bazodanowego i portów po przez dostosowanie ustawień w pliku `application.yaml` wewnątrz projektów auth, product, warehouse, lub przez przekazanie odpowiednich zmiannych środowiskowych Springa.
+
+# Przedmioty (index.html):
+![Alt text](image.png)
+
+# Dostawcy (supplires.html):
+![Alt text](image-1.png)
+
+# Magazyny (warehouses.html)
+![Alt text](image-2.png)
 
