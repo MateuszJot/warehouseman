@@ -6,15 +6,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <title>Items</title>
+    <title>Suppliers</title>
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/items.js" defer></script>
+    <script src="js/suppliers.js" defer></script>
 </head>
 <body>
 
     <div class="container">
         <header class="header">
-            <h1>Items</h1>
+            <h1>Suppliers</h1>
             <span><a href="index.html">Items</a>|<a href="suppliers.html">Suppliers</a>|<a href="warehouses.html">Warehouses</a></span><br/>
             <span>Your session: </span>
             <span id="session-info"></span>
@@ -24,19 +24,16 @@
             <div class="item-list-header">
                 <div>code</div>
                 <div>name</div>
-                <div>supplier id</div>
-                <div>price</div>
-                <div>warehouseable</div>
-                <div>description</div>
-                <div>-</div>
+                <div>country</div>
+                <div>address1</div>
+                <div>address2</div>
             </div>
             <div class="item-list-header">
                 <div><input type="text" id="new-item-code"/></div>
                 <div><input type="text" id="new-item-name"/></div>
-                <div><select id="new-item-supplier"></select></div>
-                <div><input type="number" min="1" step="1" id="new-item-price"/></div>
-                <div><input type="checkbox" id="new-item-warehouseable"/></div>
-                <div><input type="text" id="new-item-description"/></div>
+                <div><input type="text" id="new-item-country"/></div>
+                <div><input type="text" id="new-item-address1"/></div>
+                <div><input type="text" id="new-item-address2"/></div>
                 <div><button onclick="addItem()">Add</button></div>
             </div>
         </section>
@@ -46,13 +43,9 @@
         <div class="item" template-set-attr="id">
             <div template-set="code"></div>
             <div template-set="name"></div>
-            <div>
-                <span template-set="supplier-id"></span>
-            </div>
-            <div template-set="price"></div>
-            <div template-set="warehouseable"></div>
-            <div template-set="description"></div>
-            <button template-set-attr="id" onclick="removeItem(this)">X</button>
+            <div template-set="country"></div>
+            <div template-set="address1"></div>
+            <div template-set="address2"></div>
         </div>
     </template>
 </body>

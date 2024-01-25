@@ -2,14 +2,13 @@ package pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemResponseDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseResponseDTO;
+import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.*;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.ItemClonedEntity;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.StoredItemEntity;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.WarehouseEntity;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.lib.mappers.MainMapperConfig;
+
+import java.util.List;
 
 @Mapper(config = MainMapperConfig.class)
 public interface WarehouseMapper {
@@ -27,4 +26,10 @@ public interface WarehouseMapper {
     @Mapping(target = "item", ignore = true)
     @Mapping(target = "warehouse", ignore = true)
     StoredItemEntity toEntity(StoredItemCreateRequestDTO body);
+
+    default WarehouseListResponseDTO toResponse(List<WarehouseEntity> entities) {
+        WarehouseListResponseDTO listResponse = new WarehouseListResponseDTO();
+        listResponse.setItems(entities.stream().map(this::toResponse).toList());
+        return listResponse;
+    }
 }

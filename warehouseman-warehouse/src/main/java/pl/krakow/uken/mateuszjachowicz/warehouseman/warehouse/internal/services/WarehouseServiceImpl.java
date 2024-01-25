@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.lib.exceptions.EntityNotFoundException;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemResponseDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseResponseDTO;
+import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.*;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.ItemClonedEntity;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.StoredItemEntity;
 import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.WarehouseEntity;
@@ -61,5 +58,10 @@ public class WarehouseServiceImpl implements WarehouseService {
                 .findById(storedItemID)
                 .map(mapper::toResponse)
                 .orElseThrow(() -> new EntityNotFoundException(StoredItemEntity.class, storedItemID));
+    }
+
+    @Override
+    public WarehouseListResponseDTO getSuppliers() {
+        return mapper.toResponse(repo.findAll());
     }
 }

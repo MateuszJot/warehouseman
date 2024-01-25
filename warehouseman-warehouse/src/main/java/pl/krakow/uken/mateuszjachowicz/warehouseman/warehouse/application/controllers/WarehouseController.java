@@ -6,16 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemResponseDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseResponseDTO;
+import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.*;
 
 import java.util.UUID;
 
 public interface WarehouseController {
     @PostMapping("/warehouses")
     ResponseEntity<WarehouseResponseDTO> createWarehouse(@Valid @RequestBody WarehouseCreateRequestDTO body);
+    @GetMapping("/warehouses")
+    ResponseEntity<WarehouseListResponseDTO> getWarehouses();
     @GetMapping("/warehouses/{id}")
     ResponseEntity<WarehouseResponseDTO> getWarehouseByID(@Valid @PathVariable UUID id);
     @PostMapping("/warehouses/{warehouseID}/items")

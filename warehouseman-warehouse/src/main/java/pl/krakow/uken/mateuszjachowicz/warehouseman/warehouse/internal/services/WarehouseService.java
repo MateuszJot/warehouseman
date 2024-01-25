@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.StoredItemResponseDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseCreateRequestDTO;
-import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.WarehouseResponseDTO;
+import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.application.dtos.*;
 
 import java.util.UUID;
 
@@ -18,4 +15,5 @@ public interface WarehouseService {
     WarehouseResponseDTO getWarehouseByID(UUID id);
     StoredItemResponseDTO createWarehouseItemByID(UUID warehouseID, StoredItemCreateRequestDTO body);
     StoredItemResponseDTO getWarehouseItemByID(UUID warehouseID, UUID storedItemID);
+    WarehouseListResponseDTO getSuppliers();
 }

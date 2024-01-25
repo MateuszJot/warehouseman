@@ -17,14 +17,8 @@ const TAMEPLATES = {
 }
 
 const itemList = document.getElementById("item-list");
-
-
 let sessionInfoUpdateTimeout = undefined;
-const pageSize = 10;
-let itemPage = 0;
-let suppliers = [];
-let firstDraw = true;
-
+let firstLoadInitialized = false;
 
 function getToken() {
     return localStorage.getItem(LS_KEY_TOKEN);
@@ -99,32 +93,17 @@ async function parseFetchResponse(response) {
     }
 }
 
-const API = Object.freeze({
+API = Object.freeze({
     login: ()=>{
         return request("GET", SERVICES.AUTH, "/token", null).then(r=>updateToken(r.body.token));
     },
     getItems: (page, pageSize)=> {
-        return request("GET", SERVICES.PRODUCT, `/items?pageNumber=${page}&pageSize=${pageSize}`, null)        
-    },
-    deleteItem: (id)=> {
-        return request("DELETE", SERVICES.PRODUCT, `/items/${id}`, null)        
+        return request("GET", SERVICES.PRODUCT, `/suppliers`, null)        
     },
     addItem: (item)=> {
-        return request("POST", SERVICES.PRODUCT, `/items`, item).then(response => response.body)        
+        return request("POST", SERVICES.PRODUCT, `/suppliers`, item).then(response => response.body)        
     },
-    getSuppliers: ()=> {
-        return request("GET", SERVICES.PRODUCT, "/suppliers", null).then(response => response.body.items);
-    }
 });
-
-function drawFirstTime() {
-    if (!firstDraw) {
-        return;
-    }
-    firstDraw = false;
-    loadSuppliers()
-    loadMore();
-}
 
 
 function updateSessionInfo() {
@@ -141,7 +120,10 @@ function updateSessionInfo() {
         if (diff < 0) {
             sessionInfo.innerText = "Session Expired";
         } else {
-            drawFirstTime();
+            if (!firstLoadInitialized) {
+                firstLoadInitialized = true;
+                loadSuppliers();
+            }
             let mins = Math.floor(diff / 60);
             let secs = Math.floor(diff % 60);
             sessionInfo.innerText = `Session expires in ${mins}:${secs}`;
@@ -219,93 +201,42 @@ function appendSingleItem(item) {
     itemList.appendChild(itemElement);
 }
 
-
-/**
- * 
- * @param {HTMLButtonElement} button 
- */
-function extractButtonId(button) {
-    return button.getAttribute("entity-id");
-}
-
-/**
- * 
- * @param {HTMLButtonElement} button 
- */
-function removeItem(button) {
-    let idToDelete = extractButtonId(button);
-    console.log(`Remove Item id: ${idToDelete}`);
-    API.deleteItem(idToDelete)
-        .then(() => 
-            document.querySelector(`.item[entity-id='${idToDelete}']`)
-            .remove()
-            );
-}
-
-
-function loadMore() {
-    API.getItems(itemPage, pageSize)
+function loadSuppliers() {
+    API.getItems()
         .then(x => x.body.items)
         .then(appendItems);
-
-
-    itemPage++;
-}
-
-function loadSuppliers() {
-    API.getSuppliers().then(supplierList => {
-        suppliers = supplierList;
-        updateSupplierSelect();
-    });
-}
-
-function updateSupplierSelect() {
-    let select = document.getElementById("new-item-supplier");
-    select.innerHTML = "";
-    suppliers.forEach(supplier => {
-        let option = document.createElement("option");
-        option.value = supplier.id;
-        option.innerText = `${supplier.name} (${supplier.code})`;
-        select.appendChild(option);
-    });
-
 }
 
 function addItem() {
-    let itemNewItemCode = document.getElementById("new-item-code").value;
-    let itemNewItemName = document.getElementById("new-item-name").value;
-    let itemNewItemSupplier = document.getElementById("new-item-supplier").value;
-    let itemNewItemPrice = Number(document.getElementById("new-item-price").value);
-    let itemNewItemWarehouseable = document.getElementById("new-item-warehouseable").value === "on";
-    let itemNewItemDescription = document.getElementById("new-item-description").value;
+    let itemName = document.getElementById("new-item-name").value;
+    let itemCountry = document.getElementById("new-item-country").value;
+    let itemCode = document.getElementById("new-item-code").value;
+    let itemAddress1 = document.getElementById("new-item-address1").value;
+    let itemAddress2 = document.getElementById("new-item-address2").value;
 
-
-    if (itemNewItemCode == undefined
-    || itemNewItemName == null        
-    || itemNewItemSupplier == null        
-    || itemNewItemPrice == null
-    || itemNewItemWarehouseable == null        
-    || itemNewItemDescription == null) {
+    if (itemName == undefined
+        || itemCountry == undefined
+        || itemCode == undefined
+        || itemAddress1 == undefined
+        || itemAddress2 == undefined) {
         return;
     }
 
     let body = {
-        code: itemNewItemCode,
-        name: itemNewItemName,
-        supplier: itemNewItemSupplier,
-        price: itemNewItemPrice,
-        warehouseable: itemNewItemWarehouseable,
-        description: itemNewItemDescription,
+        code: itemCode,
+        name: itemName,
+        country: itemCountry,
+        address1: itemAddress1,
+        address2: itemAddress2,
     };
-    API.login();
+
     API.addItem(body).then(appendSingleItem)
 
-    document.getElementById("new-item-code").value = "";
     document.getElementById("new-item-name").value = "";
-    document.getElementById("new-item-supplier").value = "";
-    document.getElementById("new-item-price").value = "";
-    document.getElementById("new-item-warehouseable").value = false;
-    document.getElementById("new-item-description").value = "";
+    document.getElementById("new-item-country").value = "";
+    document.getElementById("new-item-code").value = "";
+    document.getElementById("new-item-address1").value = "";
+    document.getElementById("new-item-address2").value = "";
     document.getElementById("new-item-code").focus();
 }
 

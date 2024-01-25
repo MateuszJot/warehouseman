@@ -44,7 +44,6 @@ public class ItemClonedServiceImpl implements ItemClonedService {
             return Optional.of(entity);
         }
         catch (FeignException.NotFound ex) {
-            // TODO? remove from db?
             return Optional.empty();
         }
         catch (RetryableException exception) {
