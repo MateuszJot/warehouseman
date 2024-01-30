@@ -10,6 +10,7 @@ import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.
 @Mapper(config = MainMapperConfig.class)
 public interface ItemClonedMapper {
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "supplierID", source = "supplier.id")
     @Mapping(target = "supplierCode", source = "supplier.code")
     ItemClonedEntity toEntity(ItemResponseDTO entity);

@@ -101,7 +101,7 @@ const API = Object.freeze({
     getWarehouses: (page, pageSize)=> {
         return request("GET", SERVICES.WAREHOUSE, `/warehouses`, null)        
     },
-    addWarehouse: (item)=> {z
+    addWarehouse: (item)=> {
         return request("POST", SERVICES.WAREHOUSE, `/warehouses`, item).then(response => response.body)        
     },
     addItemToWarehouse: (warehouseId, itemId)=> {
@@ -214,9 +214,7 @@ function initTemplateFiels(element, data, prevKey=undefined) {
     addButton.onclick = () => {
         let warehouseId = data['id'];
         let itemId = select.value;
-        API.addItemToWarehouse(warehouseId, itemId).then(() => {
-            element.remove();
-        });
+        API.addItemToWarehouse(warehouseId, itemId);
     };
 }
 

@@ -9,7 +9,7 @@ import pl.krakow.uken.mateuszjachowicz.warehouseman.warehouse.internal.entities.
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-23T21:39:06+0100",
+    date = "2024-01-26T00:47:00+0100",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -23,9 +23,9 @@ public class ItemClonedMapperImpl implements ItemClonedMapper {
 
         ItemClonedEntity itemClonedEntity = new ItemClonedEntity();
 
+        itemClonedEntity.setId( entity.getId() );
         itemClonedEntity.setSupplierID( entitySupplierId( entity ) );
         itemClonedEntity.setSupplierCode( entitySupplierCode( entity ) );
-        itemClonedEntity.setId( entity.getId() );
         itemClonedEntity.setCode( entity.getCode() );
         itemClonedEntity.setName( entity.getName() );
         itemClonedEntity.setPrice( entity.getPrice() );

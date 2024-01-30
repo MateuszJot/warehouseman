@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 @MappedSuperclass
@@ -15,6 +16,7 @@ import java.util.UUID;
 public class BaseEntity {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GenericGenerator(name = "IdGenerator", strategy = "pl.krakow.uken.mateuszjachowicz.warehouseman.lib.config.IdGenerator")
+    @GeneratedValue(generator = "IdGenerator")
     private UUID id;
 }

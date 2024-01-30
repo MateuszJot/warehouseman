@@ -4,7 +4,7 @@ server:
 security:
   jwt:
     # 30 sec
-    expiration: 30000
+    expiration: 360000
     # change in docker runtime env variable
     # should not be public
     # must be 256 chars long
