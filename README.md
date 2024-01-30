@@ -28,23 +28,24 @@ Projekt składa się z:
 **Opcja II**
 
 - **Utworzenie prostego interfejsu dla użytkownika do obsługującego wybrane REST API** - aplikacja [frontend](./warehouseman-frontend/) udostępnia prosty interfejs użytkownika i wykorzystuje REST API
-- **Dokumentacja do interfejsu użytkownika** - brak
 
 ## 4.0
 - **Utworzenie formularza do dodawania nowych danych** - [warehouseman-frontend](./warehouseman-frontend/public/index.html)
 - **Prezentacja danych przez przeglądarkę** - [warehouseman-frontend](./warehouseman-frontend/public/index.html)
-- **Walidacja danych wprowadzanych przez formularz** - Aplikacje backendowe bean
+- **Walidacja danych wprowadzanych przez formularz** - Aplikacje backendowe bean + weryfikacja lokalna
 - **Rozszerzenie REST API o możliwość dodawania danych przez zapytania** - endpointy:
     - (product) `POST /items`
     - (product) `POST /suppliers`
     - (warehouse)`POST /warehouse/{id}/items`
-- **Zabezpieczenie API np. przez klucz / token** - Microserwis auth + `MyAuthFilter` w product/warehouse
+- **Zabezpieczenie API np. przez klucz / token** - Microserwis auth + `MyAuthFilter` w product/warehouse. Każde zapytanie musi w headerze podać wygenerowany token.
 - **Pozostałe wymogi jak na ocenę 3.0** - [uzasadniono wyżej](#30)
 
 ## 5.0
 - **Podział aplikacji na mikro usługi, każda odpowiedzialna za określone zadania** - Microserwis [auth](./warehouseman-auth/), [product](./warehouseman-product/), [warehosue](./warehouseman-warehouse/)
 - **Wykorzystanie kilku baz danych do przechowywania danych** - Mikroserwisy używają swoich niezależnych baz danych. Mogą pochodzić z jednego SZBD lub różnych, nawet z różnych hostów.
-- **Mechanizm synchronizacji danych między bazami danych** - microseriw warehouse wykonuje spłaszczoną kopię danych z microserwisu product by w wypadku braku dostępu do mikroserwisu product (np. mikroserwis wyłączony) korzystać z kopii - klasa [ItemClonedServiceImpl](./warehouseman-warehouse/src/main/java/pl/krakow/uken/mateuszjachowicz/warehouseman/warehouse/internal/services/ItemClonedServiceImpl.java)
+- **Mechanizm synchronizacji danych między bazami danych** - microserwis warehouse wykonuje spłaszczoną kopię danych z microserwisu product by w wypadku braku dostępu do mikroserwisu product (np. mikroserwis wyłączony) korzystać z kopii - klasa [ItemClonedServiceImpl](./warehouseman-warehouse/src/main/java/pl/krakow/uken/mateuszjachowicz/warehouseman/warehouse/internal/services/ItemClonedServiceImpl.java)
+(Podgląd synchronizacji z poziomu panelu phpmyadmin). Przedmioty są synchronizowane w momencie połączenia danego przedmiotu z magazynem.
+![Alt text](image-3.png)
 - **Pozostałe wymogi jak dla oceny 3.0 i 4.0** - [uzasadniono wyżej](#40)
 
 
@@ -67,7 +68,7 @@ Możliwe jest zmienienie silnika bazodanowego i portów po przez dostosowanie us
 # Przedmioty (index.html):
 ![Alt text](image.png)
 
-# Dostawcy (supplires.html):
+# Dostawcy (suppliers.html):
 ![Alt text](image-1.png)
 
 # Magazyny (warehouses.html)
